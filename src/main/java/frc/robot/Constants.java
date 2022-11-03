@@ -51,6 +51,8 @@ public final class Constants {
             public static final int intakeBucketButton = 1;
             public static final int tiltScoreButton = 2;
             public static final int tiltHomeButton = 3;
+            public static final int spinLeftButton = 4;
+            public static final int spinRightButton = 5;
 
         //encoder values
             //carriage
@@ -58,19 +60,32 @@ public final class Constants {
             public static final double carriageEncoderCounts = carriageRots * 42;
 
         //feedback loop stuff
-    public static final int kSlotIdx = 0;
+    public static final int carriagekSlotIdx = 0;
 
-	public static final int kPIDLoopIdx = 0;
+	public static final int carriagekPIDLoopIdx = 0;
 
 	public static final int kTimeoutMs = 30;
 	
-	public static boolean kSensorPhase = true;
+	public static boolean carriagekSensorPhase = true;
 
-	public static boolean kMotorInvert = false;
+	public static boolean carriagekMotorInvert = false;
+
+    public static final int tiltkSlotIdx = 1;
+
+    public static final int tiltkPIDLoopIdx = 1;
+
+    public static boolean tiltkSensorPhase = true;
+
+    public static boolean tiltkMotorInvert = false;
 
     //gains
-    public static final double kP = 0.15;
-    public static final double kI = 0.0;
-    public static final double kD = 0.0;
-    public static final double kF = 0.0;
+    public static final double carriagekP = 0.15;
+    public static final double carriagekI = 0.0;
+    public static final double carriagekD = 0.0;
+    public static final double carriagekF = 0.0;
+
+    public static final double tiltkP = 0.15;
+    public static final double tiltkI = 0.0;
+    public static final double tiltkD = 0.0;
+    public static final double tiltkF = 0.0;
 }

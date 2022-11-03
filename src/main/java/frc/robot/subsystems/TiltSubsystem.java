@@ -5,12 +5,24 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 
 public class TiltSubsystem extends SubsystemBase{
-    public TiltSubsystem() {}
-    TalonFX tilt = new TalonFX(0);
-    TalonFXSensorCollection tiltEncoder = tilt.getSensorCollection();
+  public final TalonFX tilt;
+  public final TalonFXSensorCollection tiltEncoder;
+    public TiltSubsystem() {
+      tilt = new TalonFX(0);
+      tiltEncoder = tilt.getSensorCollection();
+      tilt.setSensorPhase(Constants.tiltkSensorPhase);
+      tilt.setInverted(Constants.carriagekMotorInvert);
+      tilt.configAllowableClosedloopError(0, Constants.carriagekPIDLoopIdx, Constants.kTimeoutMs);
+      tilt.config_kF(Constants.tiltkPIDLoopIdx, Constants.tiltkF, Constants.kTimeoutMs);
+      tilt.config_kP(Constants.tiltkPIDLoopIdx, Constants.tiltkP, Constants.kTimeoutMs);
+      tilt.config_kI(Constants.tiltkPIDLoopIdx, Constants.tiltkI, Constants.kTimeoutMs);
+      tilt.config_kD(Constants.tiltkPIDLoopIdx, Constants.tiltkD, Constants.kTimeoutMs);
+    }
+    
   
   @Override
   public void periodic() {
@@ -18,6 +30,9 @@ public class TiltSubsystem extends SubsystemBase{
     SmartDashboard.putNumber("tilt encoder relative ticks", tiltEncoder.getIntegratedSensorPosition());
     SmartDashboard.putNumber("tilt encoder absolute ticks", tiltEncoder.getIntegratedSensorAbsolutePosition());
   }
+
+  public void configTilt(){
+      }
 
   public void resetTiltEncoder(){
     tiltEncoder.setIntegratedSensorPosition(0, 10);
