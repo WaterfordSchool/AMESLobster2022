@@ -58,10 +58,6 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void initDefaultCommand(){
-    //set default command for subsystem
-    drive(driver, 0.8);
-  }
   public void driveSlow(){
       drive(driver, 0.3);
   }

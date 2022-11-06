@@ -9,9 +9,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class CarriageSubsystem extends SubsystemBase{
+public class ElevatorSubsystem extends SubsystemBase{
   public final TalonSRX carriage;
-    public CarriageSubsystem() {
+    public ElevatorSubsystem() {
       carriage = new TalonSRX(Constants.CARRIAGECANID);
       carriage.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
       carriage.setSensorPhase(Constants.carriagekSensorPhase);
@@ -21,7 +21,6 @@ public class CarriageSubsystem extends SubsystemBase{
       carriage.config_kP(Constants.carriagekPIDLoopIdx, Constants.carriagekP, Constants.kTimeoutMs);
       carriage.config_kI(Constants.carriagekPIDLoopIdx, Constants.carriagekI, Constants.kTimeoutMs);
       carriage.config_kD(Constants.carriagekPIDLoopIdx, Constants.carriagekD, Constants.kTimeoutMs);
-
     }
     
   
@@ -31,11 +30,19 @@ public class CarriageSubsystem extends SubsystemBase{
   }
   
   public void resetCarriageEncoder(){
-
+    carriage.setSelectedSensorPosition(0);
   }
 
-  public void moveUpSet(){
-    carriage.set(ControlMode.Position, demand);
-    }
+  public void moveUp(){
+    carriage.set(ControlMode.Position, Constants.carriageUpEncoderTicks);
+  }
+
+  public void moveDown(){
+    carriage.set(ControlMode.Position, 0);
+  }
+
+  public void moveDownSlightly(){
+    carriage.set(ControlMode.Position, Constants.carriageUpEncoderTicks-20);
+  }
  
 }

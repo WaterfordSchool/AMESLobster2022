@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SpinnySubsystem;
 import frc.robot.subsystems.TiltSubsystem;
 
-public class SpinnyIntakeCommand extends CommandBase{
+public class IntakeCommand extends CommandBase{
         
         private final SpinnySubsystem m_spinnySubsystem;
 
-        public SpinnyIntakeCommand(SpinnySubsystem subsystem) {
+        public IntakeCommand(SpinnySubsystem subsystem) {
             m_spinnySubsystem = subsystem;
             addRequirements(m_spinnySubsystem);
           }
