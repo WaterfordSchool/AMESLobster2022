@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Axis;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ElevatorDownCommand;
+import frc.robot.commands.ElevatorManualCommand;
 import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.IntakeCommand;
@@ -50,6 +52,7 @@ public class RobotContainer {
   private final ElevatorUpCommand m_elevatorUp = new ElevatorUpCommand(m_elevatorSubsystem);
   private final ElevatorDownCommand m_elevatorDownFull = new ElevatorDownCommand(m_elevatorSubsystem, true);
   private final ElevatorDownCommand m_elevatorDownSlight = new ElevatorDownCommand(m_elevatorSubsystem, false);
+  private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -74,6 +77,7 @@ public class RobotContainer {
     JoystickButton moveUpTiltButton = new JoystickButton(operator, Constants.moveUpTiltButton);
     JoystickButton carriageDownSlightButton = new JoystickButton(operator, Constants.carriageDownSlightButton);
     JoystickButton moveDownButton = new JoystickButton(operator, Constants.moveDownButton);
+     
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);
