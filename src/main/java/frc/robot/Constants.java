@@ -15,12 +15,10 @@ package frc.robot;
 public final class Constants {
     //CAN ids
         //drive motors
-        public static final int R1CANID = 1;
-        public static final int R2CANID = 2;
-        public static final int R3CANID = 3;
-        public static final int L1CANID = 4;
-        public static final int L2CANID = 5;
-        public static final int L3CANID = 6;
+        public static final int R1CANID = 3;
+        public static final int R2CANID = 4;
+        public static final int L1CANID = 1;
+        public static final int L2CANID = 2;
     
             //spinny motors
         public static final int SPINNY1CANID = 7;
@@ -30,7 +28,7 @@ public final class Constants {
         public static final int TILTCANID = 9;
     
             //carriage motor
-        public static final int CARRIAGECANID = 10;
+        public static final int CARRIAGECANID = 5;
     
         //ramping
         public static final double RAMP_VAL = 0.1;

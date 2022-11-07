@@ -30,15 +30,13 @@ public class DriveTrain extends SubsystemBase {
     
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
-    left1 = new CANSparkMax(0, MotorType.kBrushless);
-    left2 = new CANSparkMax(1, MotorType.kBrushless);
-    left3 = new CANSparkMax(2, MotorType.kBrushless);
+    left1 = new CANSparkMax(1, MotorType.kBrushless);
+    left2 = new CANSparkMax(2, MotorType.kBrushless);
     right1 = new CANSparkMax(3, MotorType.kBrushless);
     right2 = new CANSparkMax(4, MotorType.kBrushless);
-    right3 = new CANSparkMax(5, MotorType.kBrushless);
 
-    leftDrive = new MotorControllerGroup(left1, left2, left3);
-    rightDrive = new MotorControllerGroup(right1, right2, right3);
+    leftDrive = new MotorControllerGroup(left1, left2);
+    rightDrive = new MotorControllerGroup(right1, right2);
 
     dDrive = new DifferentialDrive(leftDrive, rightDrive);
     
