@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -30,10 +31,10 @@ public class DriveTrain extends SubsystemBase {
     
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
-    left1 = new CANSparkMax(1, MotorType.kBrushless);
-    left2 = new CANSparkMax(2, MotorType.kBrushless);
-    right1 = new CANSparkMax(3, MotorType.kBrushless);
-    right2 = new CANSparkMax(4, MotorType.kBrushless);
+    left1 = new CANSparkMax(Constants.L1CANID, MotorType.kBrushless);
+    left2 = new CANSparkMax(Constants.L2CANID, MotorType.kBrushless);
+    right1 = new CANSparkMax(Constants.R1CANID, MotorType.kBrushless);
+    right2 = new CANSparkMax(Constants.R2CANID, MotorType.kBrushless);
 
     leftDrive = new MotorControllerGroup(left1, left2);
     rightDrive = new MotorControllerGroup(right1, right2);

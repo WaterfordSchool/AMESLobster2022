@@ -21,8 +21,8 @@ public final class Constants {
         public static final int L2CANID = 2;
     
             //spinny motors
-        public static final int SPINNY1CANID = 7;
-        public static final int SPINNY2CANID = 8;
+        public static final int SPINNY1CANID = 11;
+        public static final int SPINNY2CANID = 10;
     
             //tilt motor
         public static final int TILTCANID = 9;

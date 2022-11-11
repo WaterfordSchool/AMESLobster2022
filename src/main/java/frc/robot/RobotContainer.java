@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+//TODO: run the manual elevator command
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -57,6 +57,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
+    m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -81,12 +82,12 @@ public class RobotContainer {
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);
-    intakeButton.whenPressed(m_intake);
-    spinLeftButton.whenPressed(m_spinLeft);
-    spinRightButton.whenPressed(m_spinRight);
-    moveUpTiltButton.whenPressed(new SequentialCommandGroup(m_elevatorUp, m_tiltFor));
-    carriageDownSlightButton.whenPressed(m_elevatorDownSlight);
-    moveDownButton.whenPressed(m_elevatorDownFull);
+    //intakeButton.whenPressed(m_intake);
+    //spinLeftButton.whenPressed(m_spinLeft);
+    //spinRightButton.whenPressed(m_spinRight);
+    //moveUpTiltButton.whenPressed(new SequentialCommandGroup(m_elevatorUp, m_tiltFor));
+    //carriageDownSlightButton.whenPressed(m_elevatorDownSlight);
+    //moveDownButton.whenPressed(m_elevatorDownFull);
   }
 
   /**
