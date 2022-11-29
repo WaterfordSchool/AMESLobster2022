@@ -45,7 +45,7 @@ public class RobotContainer {
   private final ArcadeDrive m_arcadeFastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
   private final ArcadeDrive m_arcadeSlowDrive = new ArcadeDrive(m_driveTrain, 0.3, driver);
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
-  private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
+  /*private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
   private final SpinCommand m_spinRight = new SpinCommand(m_SpinnySubsystem, true);
   private final SpinCommand m_spinLeft = new SpinCommand(m_SpinnySubsystem, false);
   private final TiltForCommand m_tiltFor = new TiltForCommand(m_tiltSubsystem);
@@ -53,11 +53,12 @@ public class RobotContainer {
   private final ElevatorDownCommand m_elevatorDownFull = new ElevatorDownCommand(m_elevatorSubsystem, true);
   private final ElevatorDownCommand m_elevatorDownSlight = new ElevatorDownCommand(m_elevatorSubsystem, false);
   private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
+  */
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
-    m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
+   // m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -72,13 +73,13 @@ public class RobotContainer {
     //driverControllerButtons
     JoystickButton fastButton = new JoystickButton(driver, 1);
     JoystickButton slowButton = new JoystickButton(driver, 2);
-    JoystickButton intakeButton = new JoystickButton(operator, Constants.intakeBucketButton);
+    /*JoystickButton intakeButton = new JoystickButton(operator, Constants.intakeBucketButton);
     JoystickButton spinLeftButton = new JoystickButton(operator, Constants.spinLeftButton);
     JoystickButton spinRightButton = new JoystickButton(operator, Constants.spinRightButton);
     JoystickButton moveUpTiltButton = new JoystickButton(operator, Constants.moveUpTiltButton);
     JoystickButton carriageDownSlightButton = new JoystickButton(operator, Constants.carriageDownSlightButton);
     JoystickButton moveDownButton = new JoystickButton(operator, Constants.moveDownButton);
-     
+    */
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);

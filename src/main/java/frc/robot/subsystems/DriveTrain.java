@@ -17,10 +17,8 @@ public class DriveTrain extends SubsystemBase {
 
     private CANSparkMax left1;
     private CANSparkMax left2;
-    private CANSparkMax left3;
     private CANSparkMax right1;
     private CANSparkMax right2;
-    private CANSparkMax right3;
 
     private MotorControllerGroup leftDrive; 
     private MotorControllerGroup rightDrive; 
@@ -45,10 +43,8 @@ public class DriveTrain extends SubsystemBase {
      final double t = 0.4;
      left1.setOpenLoopRampRate(t);
      left2.setOpenLoopRampRate(t);
-     left3.setOpenLoopRampRate(t);
      right1.setOpenLoopRampRate(t);
      right2.setOpenLoopRampRate(t);
-     right3.setOpenLoopRampRate(t);
  
   }
 
