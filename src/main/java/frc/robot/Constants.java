@@ -80,7 +80,9 @@ public final class Constants {
         public static boolean tiltkSensorPhase = true;
     
         public static boolean tiltkMotorInvert = false;
-    
+
+        public static final double tiltMaxOutput = 1;
+        public static final double tiltMinOutput = -1;
         //gains
         public static final double carriagekP = 0.15;
         public static final double carriagekI = 0.0;
