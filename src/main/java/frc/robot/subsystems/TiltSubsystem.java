@@ -13,8 +13,10 @@ public class TiltSubsystem extends SubsystemBase{
   public final CANSparkMax tilt;
   public final SparkMaxPIDController tiltPID;
   private final RelativeEncoder tiltEncoder;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, rotations;
-
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, rotations, rawRots;
+  public double desiredRots = 0;
+  //public double rawRots = desiredRots/Constants.tiltReduction;
+  public final double tiltEncoderTicks = desiredRots * 4096;
 
     public TiltSubsystem() {
       tilt = new CANSparkMax(Constants.TILTCANID, MotorType.kBrushless);
@@ -26,9 +28,14 @@ public class TiltSubsystem extends SubsystemBase{
       tiltPID.setI(Constants.tiltkI);
       tiltPID.setD(Constants.tiltkD);
       tiltPID.setOutputRange(Constants.tiltMinOutput, Constants.tiltMaxOutput);
+      
     }
     
-  
+  public double desiredToRawRots(double desiredRots){
+    rawRots = desiredRots/Constants.tiltReduction;
+    return rawRots;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -57,7 +64,8 @@ public class TiltSubsystem extends SubsystemBase{
     if((ff != kFF)) { tiltPID.setFF(ff); kFF = ff; }
     if((max != kMaxOutput) || (min != kMinOutput)) { 
       tiltPID.setOutputRange(min, max); 
-      kMinOutput = min; kMaxOutput = max; 
+    
+      
     }
 
     tiltPID.setReference(rotations, CANSparkMax.ControlType.kPosition);

@@ -50,17 +50,19 @@ public final class Constants {
             public static final int elevatorManualAxis = 3;
                 //buttons
             public static final int intakeBucketButton = 1;
-            public static final int spinLeftButton = 4;
-            public static final int spinRightButton = 5;
+            public static final int spinLeftButton = 5;
+            public static final int spinRightButton = 6;
             public static final int moveUpTiltButton = 2;
             public static final int moveDownButton = 3;
-            public static final int carriageDownSlightButton = 6;
+            public static final int carriageDownSlightButton = 7;
 
 
         //encoder values
             //carriage
             public static final double carriageRots = 2;
             public static final double carriageUpEncoderTicks = carriageRots * 4096;
+            //tilt
+            public static final double tiltReduction = 1/60;
 
         //feedback loop stuff
         public static final int carriagekSlotIdx = 0;
@@ -93,4 +95,5 @@ public final class Constants {
         public static final double tiltkI = 0.0;
         public static final double tiltkD = 0.0;
         public static final double tiltkF = 0.0;
+
 }

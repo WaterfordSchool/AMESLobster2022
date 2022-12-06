@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SpinnySubsystem;
 import frc.robot.subsystems.TiltSubsystem;
 
-public class IntakeCommand extends CommandBase{
+public class IntakeDefaultCommand extends CommandBase{
         
         private final SpinnySubsystem m_spinnySubsystem;
-
-        public IntakeCommand(SpinnySubsystem subsystem) {
+        
+        public IntakeDefaultCommand(SpinnySubsystem subsystem) {
             m_spinnySubsystem = subsystem;
             addRequirements(m_spinnySubsystem);
           }
@@ -20,13 +20,13 @@ public class IntakeCommand extends CommandBase{
         
           @Override
         public void execute() {
-                m_spinnySubsystem.intake();
+                m_spinnySubsystem.stopSpin();
+            
        }
 
             // Called once the command ends or is interrupted.
         @Override
         public void end(boolean interrupted) {
-            m_spinnySubsystem.stopSpin();
         }
 
             // Returns true when the command should end.

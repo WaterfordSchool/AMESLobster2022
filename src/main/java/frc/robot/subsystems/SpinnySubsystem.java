@@ -22,19 +22,22 @@ public class SpinnySubsystem extends SubsystemBase{
     }
   
     public void spinLeft(){
-        spinLeft.set(ControlMode.PercentOutput, 0.2);
+        spinLeft.set(ControlMode.PercentOutput, -0.25);
+        spinRight.set(ControlMode.PercentOutput, 0);
     }
 
     public void spinRight(){
-        spinRight.set(ControlMode.PercentOutput, -0.2);
+        spinRight.set(ControlMode.PercentOutput, 0.25);
+        spinLeft.set(ControlMode.PercentOutput, 0);
+
     }
 
     public void intake(){
-        spinLeft.set(ControlMode.PercentOutput, 0.2);
-        spinRight.set(ControlMode.PercentOutput, -0.2);
+        spinLeft.set(ControlMode.PercentOutput, -0.25);
+        spinRight.set(ControlMode.PercentOutput, 0.25);
     }
     
-    public void stop(){
+    public void stopSpin(){
         spinLeft.set(ControlMode.PercentOutput, 0);
         spinRight.set(ControlMode.PercentOutput, 0);
     }

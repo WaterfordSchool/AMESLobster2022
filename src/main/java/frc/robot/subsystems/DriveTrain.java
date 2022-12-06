@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -15,10 +17,10 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
-    private CANSparkMax left1;
-    private CANSparkMax left2;
-    private CANSparkMax right1;
-    private CANSparkMax right2;
+    private WPI_TalonSRX left1;
+    private WPI_TalonSRX left2;
+    private WPI_TalonSRX right1;
+    private WPI_TalonSRX right2;
 
     private MotorControllerGroup leftDrive; 
     private MotorControllerGroup rightDrive; 
@@ -29,10 +31,11 @@ public class DriveTrain extends SubsystemBase {
     
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
-    left1 = new CANSparkMax(Constants.L1CANID, MotorType.kBrushless);
-    left2 = new CANSparkMax(Constants.L2CANID, MotorType.kBrushless);
-    right1 = new CANSparkMax(Constants.R1CANID, MotorType.kBrushless);
-    right2 = new CANSparkMax(Constants.R2CANID, MotorType.kBrushless);
+    left1 = new WPI_TalonSRX(Constants.L1CANID);
+    left2 = new WPI_TalonSRX(Constants.L2CANID);
+    right1 = new WPI_TalonSRX(Constants.R1CANID);
+    right2 = new WPI_TalonSRX(Constants.R2CANID);
+
 
     leftDrive = new MotorControllerGroup(left1, left2);
     rightDrive = new MotorControllerGroup(right1, right2);
@@ -40,11 +43,12 @@ public class DriveTrain extends SubsystemBase {
     dDrive = new DifferentialDrive(leftDrive, rightDrive);
     
      //ramping
-     final double t = 0.4;
-     left1.setOpenLoopRampRate(t);
-     left2.setOpenLoopRampRate(t);
-     right1.setOpenLoopRampRate(t);
-     right2.setOpenLoopRampRate(t);
+     final double t = 0.3;
+     left1.configOpenloopRamp(t);
+     left2.configOpenloopRamp(t);
+     right1.configOpenloopRamp(t);
+     right2.configOpenloopRamp(t);
+ 
  
   }
 
@@ -53,20 +57,19 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void driveSlow(){
+  /*public void driveSlow(){
       drive(driver, 0.3);
   }
   public void driveFast(){
       drive(driver, 1);
-  }
+  }*/
 
   public void drive(XboxController driveController, double kSpeed) {
-    dDrive.arcadeDrive(-driveController.getRawAxis(0) * kSpeed, -driveController.getRawAxis(3) * kSpeed);
+    dDrive.arcadeDrive(driveController.getRawAxis(0) * kSpeed, driveController.getRawAxis(3) * kSpeed);
     if(driveController.getRawAxis(2) > 0){
-    dDrive.arcadeDrive(-driveController.getRawAxis(0) * kSpeed, driveController.getRawAxis(2) * kSpeed);
+    dDrive.arcadeDrive(driveController.getRawAxis(0) * kSpeed, -driveController.getRawAxis(2) * kSpeed);
   }
 }
-
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
