@@ -10,7 +10,7 @@ import frc.robot.Constants;
 public class SpinnySubsystem extends SubsystemBase{
     public final TalonFX spinLeft;
     public final TalonFX spinRight;
-   
+    
       public SpinnySubsystem() {
         spinLeft = new TalonFX(Constants.SPINNY1CANID);
         spinRight = new TalonFX(Constants.SPINNY2CANID);
@@ -23,13 +23,21 @@ public class SpinnySubsystem extends SubsystemBase{
   
     public void spinLeft(){
         spinLeft.set(ControlMode.PercentOutput, -0.25);
-        spinRight.set(ControlMode.PercentOutput, 0);
+        //spinRight.set(ControlMode.PercentOutput, 0);
     }
 
     public void spinRight(){
         spinRight.set(ControlMode.PercentOutput, 0.25);
-        spinLeft.set(ControlMode.PercentOutput, 0);
+        //spinLeft.set(ControlMode.PercentOutput, 0);
 
+    }
+
+    public void spinStopLeft(){
+      spinLeft.set(ControlMode.PercentOutput, 0);
+    }
+
+    public void spinStopRight(){
+      spinRight.set(ControlMode.PercentOutput, 0);
     }
 
     public void intake(){

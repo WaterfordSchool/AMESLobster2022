@@ -20,8 +20,8 @@ public class IntakeDefaultCommand extends CommandBase{
         
           @Override
         public void execute() {
-                m_spinnySubsystem.stopSpin();
-            
+                m_spinnySubsystem.spinStopLeft();
+                m_spinnySubsystem.spinStopRight();
        }
 
             // Called once the command ends or is interrupted.
