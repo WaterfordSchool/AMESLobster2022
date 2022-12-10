@@ -40,18 +40,19 @@ public class RobotContainer {
   
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final SpinnySubsystem m_SpinnySubsystem = new SpinnySubsystem();
-  private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
+  //private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
 
   private final ArcadeDrive m_arcadeFastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
   private final ArcadeDrive m_arcadeSlowDrive = new ArcadeDrive(m_driveTrain, 0.3, driver);
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
-  //private final IntakeDefaultCommand m_defaultintake = new IntakeDefaultCommand(m_SpinnySubsystem);
-  private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
+  private final IntakeDefaultCommand m_defaultintake = new IntakeDefaultCommand(m_SpinnySubsystem);
+  private final SpinCommand m_spinIntake = new SpinCommand(m_SpinnySubsystem, 3);
+  //private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
   private final SpinCommand m_spinRight = new SpinCommand(m_SpinnySubsystem, 0);
   private final SpinCommand m_spinLeft = new SpinCommand(m_SpinnySubsystem, 1);
   private final SpinCommand m_spinDefault = new SpinCommand(m_SpinnySubsystem, 2);
-  private final TiltForCommand m_tiltFor = new TiltForCommand(m_tiltSubsystem);
+  //private final TiltForCommand m_tiltFor = new TiltForCommand(m_tiltSubsystem);
   private final ElevatorUpCommand m_elevatorUp = new ElevatorUpCommand(m_elevatorSubsystem);
   private final ElevatorDownCommand m_elevatorDownFull = new ElevatorDownCommand(m_elevatorSubsystem, true);
   private final ElevatorDownCommand m_elevatorDownSlight = new ElevatorDownCommand(m_elevatorSubsystem, false);
@@ -61,7 +62,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
-    m_SpinnySubsystem.setDefaultCommand(m_spinDefault);
+    m_SpinnySubsystem.setDefaultCommand(m_defaultintake);
    // m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     // Configure the button bindings
     configureButtonBindings();
@@ -86,11 +87,14 @@ public class RobotContainer {
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);
-    //intakeButton.whenPressed(m_intake);
-    spinLeftButton.whenPressed(m_spinLeft);
+    //intakeButton.whenPressed(m_spinIntake).whenReleased(m_defaultintake);
+    //spinLeftButton.whenPressed(m_spinLeft).whenReleased(m_defaultintake);
     //spinLeftButton.whenReleased(m_defaultintakeleft);
-    spinRightButton.whenPressed(m_spinRight);
+    //spinRightButton.whenPressed(m_spinRight).whenReleased(m_defaultintake);
     //spinRightButton.whenReleased(m_defaultintakeright);
+    spinLeftButton.whenPressed(new SpinCommand(m_SpinnySubsystem, 1)).whenReleased(new IntakeDefaultCommand(m_SpinnySubsystem));
+    spinRightButton.whenPressed(new SpinCommand(m_SpinnySubsystem, 0)).whenReleased(new IntakeDefaultCommand(m_SpinnySubsystem));
+
     
     //spinLeftButton.whenPressed(m_spinLeft);
     //spinRightButton.whenPressed(m_spinRight);

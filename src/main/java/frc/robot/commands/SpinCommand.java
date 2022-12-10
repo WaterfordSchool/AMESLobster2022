@@ -29,8 +29,8 @@ public class SpinCommand extends CommandBase{
                 m_spinnySubsystem.spinLeft();
             }
             if(isrld == 2){
-                m_spinnySubsystem.spinStopLeft();
-                m_spinnySubsystem.spinStopRight();
+                m_spinnySubsystem.spinRight();
+                m_spinnySubsystem.spinLeft();
             }
         }
 
@@ -47,6 +47,7 @@ public class SpinCommand extends CommandBase{
                 m_spinnySubsystem.spinStopLeft();
                 m_spinnySubsystem.spinStopRight();
             }
+            m_spinnySubsystem.stopSpin();
         }
 
             // Returns true when the command should end.
