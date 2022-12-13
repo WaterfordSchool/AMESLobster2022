@@ -40,7 +40,7 @@ public class RobotContainer {
   
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final SpinnySubsystem m_SpinnySubsystem = new SpinnySubsystem();
-  //private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
+  private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
 
   private final ArcadeDrive m_arcadeFastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
@@ -57,12 +57,15 @@ public class RobotContainer {
   private final ElevatorDownCommand m_elevatorDownFull = new ElevatorDownCommand(m_elevatorSubsystem, true);
   private final ElevatorDownCommand m_elevatorDownSlight = new ElevatorDownCommand(m_elevatorSubsystem, false);
   private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
+  private final TiltForCommand m_tiltForCommand = new TiltForCommand(m_tiltSubsystem);
+  private final TiltHomeCommand m_tiltHomeCommand = new TiltHomeCommand(m_tiltSubsystem);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
     m_SpinnySubsystem.setDefaultCommand(m_defaultintake);
+    //m_tiltSubsystem.setDefaultCommand(defaultCommand);
    // m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     // Configure the button bindings
     configureButtonBindings();
@@ -79,21 +82,25 @@ public class RobotContainer {
     JoystickButton fastButton = new JoystickButton(driver, 1);
     JoystickButton slowButton = new JoystickButton(driver, 2);
     JoystickButton intakeButton = new JoystickButton(operator, Constants.intakeBucketButton);
-    JoystickButton spinLeftButton = new JoystickButton(operator, Constants.spinLeftButton);
-    JoystickButton spinRightButton = new JoystickButton(operator, Constants.spinRightButton);
+    /*JoystickButton spinLeftButton = new JoystickButton(operator, Constants.spinLeftButton);
+    JoystickButton spinRightButton = new JoystickButton(operator, Constants.spinRightButton);*/
     JoystickButton moveUpTiltButton = new JoystickButton(operator, Constants.moveUpTiltButton);
     JoystickButton carriageDownSlightButton = new JoystickButton(operator, Constants.carriageDownSlightButton);
     JoystickButton moveDownButton = new JoystickButton(operator, Constants.moveDownButton);
+    JoystickButton tiltForButton = new JoystickButton(operator, 1);
+    JoystickButton tiltHomeButton = new JoystickButton(operator, 2);
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);
+    tiltForButton.whenPressed(new TiltForCommand(m_tiltSubsystem));
+    tiltHomeButton.whenPressed(new TiltHomeCommand(m_tiltSubsystem));
     //intakeButton.whenPressed(m_spinIntake).whenReleased(m_defaultintake);
     //spinLeftButton.whenPressed(m_spinLeft).whenReleased(m_defaultintake);
     //spinLeftButton.whenReleased(m_defaultintakeleft);
     //spinRightButton.whenPressed(m_spinRight).whenReleased(m_defaultintake);
     //spinRightButton.whenReleased(m_defaultintakeright);
-    spinLeftButton.whenPressed(new SpinCommand(m_SpinnySubsystem, 1)).whenReleased(new IntakeDefaultCommand(m_SpinnySubsystem));
-    spinRightButton.whenPressed(new SpinCommand(m_SpinnySubsystem, 0)).whenReleased(new IntakeDefaultCommand(m_SpinnySubsystem));
+    /*spinLeftButton.whenPressed(new SpinCommand(m_SpinnySubsystem, 1)).whenReleased(new IntakeDefaultCommand(m_SpinnySubsystem));
+    spinRightButton.whenPressed(new SpinCommand(m_SpinnySubsystem, 0)).whenReleased(new IntakeDefaultCommand(m_SpinnySubsystem));*/
 
     
     //spinLeftButton.whenPressed(m_spinLeft);

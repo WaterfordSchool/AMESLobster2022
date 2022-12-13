@@ -17,6 +17,7 @@ public class TiltSubsystem extends SubsystemBase{
   public double desiredRots = 0;
   //public double rawRots = desiredRots/Constants.tiltReduction;
   public final double tiltEncoderTicks = desiredRots * 4096;
+  
 
     public TiltSubsystem() {
       tilt = new CANSparkMax(Constants.TILTCANID, MotorType.kBrushless);
@@ -27,15 +28,9 @@ public class TiltSubsystem extends SubsystemBase{
       tiltPID.setP(Constants.tiltkP);
       tiltPID.setI(Constants.tiltkI);
       tiltPID.setD(Constants.tiltkD);
-      tiltPID.setOutputRange(Constants.tiltMinOutput, Constants.tiltMaxOutput);
-      
+      //tiltPID.setOutputRange(Constants.tiltMinOutput, Constants.tiltMaxOutput);
     }
     
-  public double desiredToRawRots(double desiredRots){
-    rawRots = desiredRots/Constants.tiltReduction;
-    return rawRots;
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -80,12 +75,12 @@ public class TiltSubsystem extends SubsystemBase{
   }
 
   public void tiltForward(){
-    rotations = 2;
+    rotations = 0;
     //TODO: CALCULATE ROTATIONS
   }
 
   public void tiltHome(){
     //tilt.set(ControlMode.Position, 0);
-    rotations = 0;
+    rotations = 9;
   }
 }

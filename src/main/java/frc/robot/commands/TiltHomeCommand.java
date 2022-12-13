@@ -14,9 +14,11 @@ public class TiltHomeCommand extends CommandBase{
           // Called when the command is initially scheduled.
           @Override
           public void initialize() {
-            //m_tiltSubsystem.tiltHome();
           }
-        
+          @Override
+          public void execute() {
+            m_tiltSubsystem.tiltHome();
+         }
           @Override
           public boolean isFinished() {
             return true;

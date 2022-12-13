@@ -12,14 +12,13 @@ public class TiltForCommand extends CommandBase{
             addRequirements(m_tiltSubsystem);
           }
         
-          // Called when the command is initially scheduled.
           @Override
-          public void initialize() {
-            //m_tiltSubsystem.tiltForward();
+          public void execute() {
+            m_tiltSubsystem.tiltForward();
           }
         
           @Override
           public boolean isFinished() {
-            return true;
+            return false;
           }
       }
