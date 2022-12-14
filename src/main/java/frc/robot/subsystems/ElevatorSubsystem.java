@@ -48,7 +48,7 @@ public class ElevatorSubsystem extends SubsystemBase{
   }
 
   public void moveManual(XboxController manualControl){
-    carriage.set(ControlMode.PercentOutput, manualControl.getRawAxis(Constants.elevatorManualAxis));
+    carriage.set(ControlMode.PercentOutput, .8*manualControl.getRawAxis(Constants.elevatorManualAxis));
   }
  
 }

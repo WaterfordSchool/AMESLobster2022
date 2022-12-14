@@ -44,10 +44,10 @@ public final class Constants {
 
             //operator controls
                 //axes
-            public static final int rotateLeftAxis = 0;
-            public static final int rotateRightAxis = 1;
+            //public static final int rotateLeftAxis = 0;
+            //public static final int rotateRightAxis = 1;
             public static final int tiltFineAxis = 2; //probably don't use
-            public static final int elevatorManualAxis = 3;
+            public static final int elevatorManualAxis = 1;
                 //buttons
             public static final int intakeBucketButton = 1;
             public static final int spinLeftButton = 5;

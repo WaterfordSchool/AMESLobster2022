@@ -7,11 +7,9 @@ import frc.robot.subsystems.TiltSubsystem;
 public class SpinCommand extends CommandBase{
         
         private final SpinnySubsystem m_spinnySubsystem;
-        private final int isrld;
 
-        public SpinCommand(SpinnySubsystem subsystem, int rld) {
+        public SpinCommand(SpinnySubsystem subsystem) {
             m_spinnySubsystem = subsystem;
-            isrld = rld;
             addRequirements(m_spinnySubsystem);
           }
         
@@ -22,7 +20,7 @@ public class SpinCommand extends CommandBase{
         
           @Override
         public void execute() {
-            if(isrld == 0){
+            /*if(isrld == 0){
                 m_spinnySubsystem.spinRight();
             }
             if(isrld == 1){
@@ -31,11 +29,12 @@ public class SpinCommand extends CommandBase{
             if(isrld == 2){
                 m_spinnySubsystem.spinRight();
                 m_spinnySubsystem.spinLeft();
-            }
+            }*/
+            m_spinnySubsystem.allSpin();
         }
 
             // Called once the command ends or is interrupted.
-        @Override
+        /*@Override
         public void end(boolean interrupted) {
             if(isrld == 0){
                 m_spinnySubsystem.spinStopRight();
@@ -48,7 +47,7 @@ public class SpinCommand extends CommandBase{
                 m_spinnySubsystem.spinStopRight();
             }
             m_spinnySubsystem.stopSpin();
-        }
+        }*/
 
             // Returns true when the command should end.
         @Override

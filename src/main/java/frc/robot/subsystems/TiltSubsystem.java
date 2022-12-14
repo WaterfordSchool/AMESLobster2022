@@ -16,12 +16,12 @@ public class TiltSubsystem extends SubsystemBase{
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, rotations, rawRots;
   public double desiredRots = 0;
   //public double rawRots = desiredRots/Constants.tiltReduction;
-  public final double tiltEncoderTicks = desiredRots * 4096;
+  //public final double tiltEncoderTicks = desiredRots * 4096;
   
 
     public TiltSubsystem() {
       tilt = new CANSparkMax(Constants.TILTCANID, MotorType.kBrushless);
-      tilt.setInverted(Constants.carriagekMotorInvert);
+      //tilt.setInverted(Constants.carriagekMotorInvert);
       tiltEncoder = tilt.getEncoder();
       tiltPID = tilt.getPIDController();
       tiltPID.setFF(Constants.tiltkF);
@@ -34,6 +34,7 @@ public class TiltSubsystem extends SubsystemBase{
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    /*
     SmartDashboard.putNumber("P Gain", kP);
     SmartDashboard.putNumber("I Gain", kI);
     SmartDashboard.putNumber("D Gain", kD);
@@ -60,12 +61,12 @@ public class TiltSubsystem extends SubsystemBase{
     if((max != kMaxOutput) || (min != kMinOutput)) { 
       tiltPID.setOutputRange(min, max); 
     
-      
-    }
+     
+    }*/
 
-    tiltPID.setReference(rotations, CANSparkMax.ControlType.kPosition);
-    SmartDashboard.putNumber("SetPoint", rotations);
-    SmartDashboard.putNumber("ProcessVariable", tiltEncoder.getPosition());
+    //tiltPID.setReference(rotations, CANSparkMax.ControlType.kPosition);
+    /*SmartDashboard.putNumber("SetPoint", rotations);
+    SmartDashboard.putNumber("ProcessVariable", tiltEncoder.getPosition());*/
     }
 
 
@@ -75,12 +76,12 @@ public class TiltSubsystem extends SubsystemBase{
   }
 
   public void tiltForward(){
-    rotations = 0;
+    tiltPID.setReference(1, CANSparkMax.ControlType.kPosition);
     //TODO: CALCULATE ROTATIONS
   }
 
   public void tiltHome(){
     //tilt.set(ControlMode.Position, 0);
-    rotations = 9;
+    tiltPID.setReference(6, CANSparkMax.ControlType.kPosition);
   }
 }
