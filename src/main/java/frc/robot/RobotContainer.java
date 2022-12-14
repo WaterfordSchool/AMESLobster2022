@@ -47,15 +47,12 @@ public class RobotContainer {
   private final ArcadeDrive m_arcadeSlowDrive = new ArcadeDrive(m_driveTrain, 0.3, driver);
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
   //private final IntakeDefaultCommand m_defaultintake = new IntakeDefaultCommand(m_SpinnySubsystem);
-  private final SpinCommand m_spinAll = new SpinCommand(m_SpinnySubsystem);
+  private final SpinCommand m_spinAll = new SpinCommand(m_SpinnySubsystem, operator);
   //private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
   /*private final SpinCommand m_spinRight = new SpinCommand(m_SpinnySubsystem, 0);
   private final SpinCommand m_spinLeft = new SpinCommand(m_SpinnySubsystem, 1);
   private final SpinCommand m_spinDefault = new SpinCommand(m_SpinnySubsystem, 2);*/
   //private final TiltForCommand m_tiltFor = new TiltForCommand(m_tiltSubsystem);
-  private final ElevatorUpCommand m_elevatorUp = new ElevatorUpCommand(m_elevatorSubsystem);
-  private final ElevatorDownCommand m_elevatorDownFull = new ElevatorDownCommand(m_elevatorSubsystem, true);
-  private final ElevatorDownCommand m_elevatorDownSlight = new ElevatorDownCommand(m_elevatorSubsystem, false);
   private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
   private final TiltForCommand m_tiltForCommand = new TiltForCommand(m_tiltSubsystem);
   private final TiltHomeCommand m_tiltHomeCommand = new TiltHomeCommand(m_tiltSubsystem);

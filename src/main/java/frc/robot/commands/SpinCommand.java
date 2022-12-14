@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SpinnySubsystem;
 import frc.robot.subsystems.TiltSubsystem;
@@ -7,9 +8,11 @@ import frc.robot.subsystems.TiltSubsystem;
 public class SpinCommand extends CommandBase{
         
         private final SpinnySubsystem m_spinnySubsystem;
+        private final XboxController spinController;
 
-        public SpinCommand(SpinnySubsystem subsystem) {
+        public SpinCommand(SpinnySubsystem subsystem, XboxController controller) {
             m_spinnySubsystem = subsystem;
+            spinController = controller;
             addRequirements(m_spinnySubsystem);
           }
         
@@ -30,7 +33,7 @@ public class SpinCommand extends CommandBase{
                 m_spinnySubsystem.spinRight();
                 m_spinnySubsystem.spinLeft();
             }*/
-            m_spinnySubsystem.allSpin();
+            m_spinnySubsystem.allSpin(spinController);
         }
 
             // Called once the command ends or is interrupted.
