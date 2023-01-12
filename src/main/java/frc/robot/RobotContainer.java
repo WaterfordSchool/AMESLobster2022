@@ -17,6 +17,7 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.TiltForCommand;
 import frc.robot.commands.TiltHomeCommand;
+import frc.robot.commands.TiltManual;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SpinnySubsystem;
@@ -40,7 +41,8 @@ public class RobotContainer {
   
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final SpinnySubsystem m_SpinnySubsystem = new SpinnySubsystem(operator);
-  private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
+  //tilt
+  //private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
 
   private final ArcadeDrive m_arcadeFastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
@@ -54,15 +56,17 @@ public class RobotContainer {
   private final SpinCommand m_spinDefault = new SpinCommand(m_SpinnySubsystem, 2);*/
   //private final TiltForCommand m_tiltFor = new TiltForCommand(m_tiltSubsystem);
   private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
-  private final TiltForCommand m_tiltForCommand = new TiltForCommand(m_tiltSubsystem);
-  private final TiltHomeCommand m_tiltHomeCommand = new TiltHomeCommand(m_tiltSubsystem);
+  
+  //tilt
+  /*private final TiltForCommand m_tiltForCommand = new TiltForCommand(m_tiltSubsystem);
+  private final TiltHomeCommand m_tiltHomeCommand = new TiltHomeCommand(m_tiltSubsystem);*/
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
     m_SpinnySubsystem.setDefaultCommand(m_spinAll);
-    //m_tiltSubsystem.setDefaultCommand(defaultCommand);
+    //m_tiltSubsystem.setDefaultCommand(new TiltManual(m_tiltSubsystem, operator));
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     // Configure the button bindings
     configureButtonBindings();
@@ -89,8 +93,12 @@ public class RobotContainer {
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);
-    tiltForButton.whenPressed(new TiltForCommand(m_tiltSubsystem));
-    tiltHomeButton.whenPressed(new TiltHomeCommand(m_tiltSubsystem));
+    //tiltForButton.whenPressed(new TiltForCommand(m_tiltSubsystem));
+    //tiltHomeButton.whenPressed(new TiltHomeCommand(m_tiltSubsystem));
+    /*if(operator.getRawAxis(5)!=0){
+      new TiltManual(m_tiltSubsystem, operator);
+    }*/
+    
     //intakeButton.whenPressed(m_spinIntake).whenReleased(m_defaultintake);
     //spinLeftButton.whenPressed(m_spinLeft).whenReleased(m_defaultintake);
     //spinLeftButton.whenReleased(m_defaultintakeleft);

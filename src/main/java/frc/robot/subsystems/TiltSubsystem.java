@@ -4,6 +4,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -28,7 +29,9 @@ public class TiltSubsystem extends SubsystemBase{
       tiltPID.setP(Constants.tiltkP);
       tiltPID.setI(Constants.tiltkI);
       tiltPID.setD(Constants.tiltkD);
-      //tiltPID.setOutputRange(Constants.tiltMinOutput, Constants.tiltMaxOutput);
+    
+      tiltPID.setOutputRange(-.2, .2);
+      tilt.setClosedLoopRampRate(0.6);
     }
     
   @Override
@@ -75,13 +78,17 @@ public class TiltSubsystem extends SubsystemBase{
     tiltEncoder.setPosition(0);
   }
 
+  public void manualTilt(XboxController controller){
+    tilt.set(-controller.getRawAxis(5));
+  }
+
   public void tiltForward(){
-    tiltPID.setReference(1, CANSparkMax.ControlType.kPosition);
+    tiltPID.setReference(-6, CANSparkMax.ControlType.kPosition);
     //TODO: CALCULATE ROTATIONS
   }
 
   public void tiltHome(){
     //tilt.set(ControlMode.Position, 0);
-    tiltPID.setReference(6, CANSparkMax.ControlType.kPosition);
+    tiltPID.setReference(-11, CANSparkMax.ControlType.kPosition);
   }
 }

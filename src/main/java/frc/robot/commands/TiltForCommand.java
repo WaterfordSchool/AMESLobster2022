@@ -19,6 +19,6 @@ public class TiltForCommand extends CommandBase{
         
           @Override
           public boolean isFinished() {
-            return false;
+            return true;
           }
       }

@@ -20,6 +20,8 @@ public class SpinnySubsystem extends SubsystemBase{
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
+      SmartDashboard.putNumber("spinny encoder left value", spinLeft.getSelectedSensorPosition());
+      SmartDashboard.putNumber("spinny encoder right value", spinRight.getSelectedSensorPosition());
     }
   
     public void spinLeft(){

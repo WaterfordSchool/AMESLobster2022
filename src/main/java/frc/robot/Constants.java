@@ -55,12 +55,14 @@ public final class Constants {
             public static final int moveUpTiltButton = 2;
             public static final int moveDownButton = 3;
             public static final int carriageDownSlightButton = 7;
+            public static final int combo = 4;
 
 
         //encoder values
             //carriage
             public static final double carriageRots = 2;
             public static final double carriageUpEncoderTicks = carriageRots * 4096;
+            
             //tilt
             public static final double tiltReduction = 1/60;
 

@@ -4,7 +4,11 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -17,9 +21,11 @@ import frc.robot.subsystems.ElevatorSubsystem;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private XboxController operator = new XboxController(1);
   private RobotContainer m_robotContainer;
-  private ElevatorSubsystem m_elevator;
+
+  public final TalonFX spinLeft = new TalonFX(Constants.SPINNY1CANID);
+    public final TalonFX spinRight = new TalonFX(Constants.SPINNY2CANID);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -57,7 +63,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_elevator.resetCarriageEncoder();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -85,6 +90,18 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    if(operator.getRawButton(Constants.spinLeftButton)){
+      spinLeft.set(ControlMode.PercentOutput, 0.4);
+    }
+    if(operator.getRawButton(Constants.spinRightButton)){
+      spinRight.set(ControlMode.PercentOutput, -0.4);
+    }
+    if(!operator.getRawButton(Constants.spinLeftButton)){
+      spinLeft.set(ControlMode.PercentOutput, 0);
+    }
+    if(!operator.getRawButton(Constants.spinRightButton)){
+      spinRight.set(ControlMode.PercentOutput, 0);
+    }
   }
 
   @Override
