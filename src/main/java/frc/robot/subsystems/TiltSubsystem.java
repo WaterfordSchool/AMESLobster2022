@@ -29,14 +29,15 @@ public class TiltSubsystem extends SubsystemBase{
       tiltPID.setP(Constants.tiltkP);
       tiltPID.setI(Constants.tiltkI);
       tiltPID.setD(Constants.tiltkD);
-    
       tiltPID.setOutputRange(-.2, .2);
       tilt.setClosedLoopRampRate(0.6);
+      tilt.setOpenLoopRampRate(0.9);
     }
     
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Tilt Encoder Value", tiltEncoder.getPosition());
     /*
     SmartDashboard.putNumber("P Gain", kP);
     SmartDashboard.putNumber("I Gain", kI);
@@ -79,16 +80,20 @@ public class TiltSubsystem extends SubsystemBase{
   }
 
   public void manualTilt(XboxController controller){
-    tilt.set(-controller.getRawAxis(5));
+    tilt.set(0.2*controller.getRawAxis(5));
+  }
+
+  public double getManualInput(XboxController controller){
+    return controller.getRawAxis(5);
   }
 
   public void tiltForward(){
-    tiltPID.setReference(-6, CANSparkMax.ControlType.kPosition);
+    tiltPID.setReference(15.5, CANSparkMax.ControlType.kPosition);
     //TODO: CALCULATE ROTATIONS
   }
 
   public void tiltHome(){
     //tilt.set(ControlMode.Position, 0);
-    tiltPID.setReference(-11, CANSparkMax.ControlType.kPosition);
+    tiltPID.setReference(10, CANSparkMax.ControlType.kPosition);
   }
 }

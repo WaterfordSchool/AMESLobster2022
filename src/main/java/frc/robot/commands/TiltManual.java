@@ -22,6 +22,11 @@ public class TiltManual extends CommandBase{
           public void execute() {
             m_tiltSubsystem.manualTilt(m_controller);
          }
+
+         @Override
+         public void end(boolean interrupted) {
+         }
+
           @Override
           public boolean isFinished() {
             return false;

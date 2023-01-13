@@ -6,7 +6,12 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +31,7 @@ public class Robot extends TimedRobot {
 
   public final TalonFX spinLeft = new TalonFX(Constants.SPINNY1CANID);
     public final TalonFX spinRight = new TalonFX(Constants.SPINNY2CANID);
+    CameraServer server;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -35,6 +41,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    
+    CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.putVideo("blur", 420, 420);
+    
   }
 
   /**
@@ -50,8 +60,8 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
-  }
+    CommandScheduler.getInstance().run();;
+    }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
@@ -90,7 +100,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if(operator.getRawButton(Constants.spinLeftButton)){
+   if(operator.getRawButton(Constants.spinLeftButton)){
       spinLeft.set(ControlMode.PercentOutput, 0.4);
     }
     if(operator.getRawButton(Constants.spinRightButton)){

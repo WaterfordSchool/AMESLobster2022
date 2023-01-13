@@ -23,8 +23,10 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SpinnySubsystem;
 import frc.robot.subsystems.TiltSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -42,7 +44,7 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final SpinnySubsystem m_SpinnySubsystem = new SpinnySubsystem(operator);
   //tilt
-  //private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
+  private final TiltSubsystem m_tiltSubsystem = new TiltSubsystem();
   private final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
 
   private final ArcadeDrive m_arcadeFastDrive = new ArcadeDrive(m_driveTrain, 1, driver);
@@ -50,23 +52,27 @@ public class RobotContainer {
   private final ArcadeDrive m_arcadeDefault = new ArcadeDrive(m_driveTrain, 0.8, driver);
   //private final IntakeDefaultCommand m_defaultintake = new IntakeDefaultCommand(m_SpinnySubsystem);
   private final SpinCommand m_spinAll = new SpinCommand(m_SpinnySubsystem, operator);
-  //private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
+  private final IntakeCommand m_intake = new IntakeCommand(m_SpinnySubsystem);
   /*private final SpinCommand m_spinRight = new SpinCommand(m_SpinnySubsystem, 0);
   private final SpinCommand m_spinLeft = new SpinCommand(m_SpinnySubsystem, 1);
   private final SpinCommand m_spinDefault = new SpinCommand(m_SpinnySubsystem, 2);*/
   //private final TiltForCommand m_tiltFor = new TiltForCommand(m_tiltSubsystem);
   private final ElevatorManualCommand m_elevatorManualCommand = new ElevatorManualCommand(m_elevatorSubsystem, operator);
-  
+  private final TiltManual m_tiltManualCommand = new TiltManual(m_tiltSubsystem, operator);
   //tilt
-  /*private final TiltForCommand m_tiltForCommand = new TiltForCommand(m_tiltSubsystem);
-  private final TiltHomeCommand m_tiltHomeCommand = new TiltHomeCommand(m_tiltSubsystem);*/
-  
+  private final TiltForCommand m_tiltForCommand = new TiltForCommand(m_tiltSubsystem, operator);
+  private final TiltHomeCommand m_tiltHomeCommand = new TiltHomeCommand(m_tiltSubsystem, operator);
+
+  private final WaitCommand m_waitABit = new WaitCommand(1);
+
+  private final SequentialCommandGroup comboCommand = new SequentialCommandGroup(new TiltForCommand(m_tiltSubsystem, operator), new WaitCommand(1), new TiltHomeCommand(m_tiltSubsystem, operator), new WaitCommand(1), new TiltForCommand(m_tiltSubsystem, operator));
+  private final ParallelCommandGroup betterComboCommand = new ParallelCommandGroup(new ElevatorUpCommand(m_elevatorSubsystem).withTimeout(1), comboCommand);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
-    m_SpinnySubsystem.setDefaultCommand(m_spinAll);
-    //m_tiltSubsystem.setDefaultCommand(new TiltManual(m_tiltSubsystem, operator));
+    //m_SpinnySubsystem.setDefaultCommand(m_spinAll);
+    m_tiltSubsystem.setDefaultCommand(m_tiltManualCommand);
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
     // Configure the button bindings
     configureButtonBindings();
@@ -90,14 +96,20 @@ public class RobotContainer {
     JoystickButton moveDownButton = new JoystickButton(operator, Constants.moveDownButton);
     JoystickButton tiltForButton = new JoystickButton(operator, 1);
     JoystickButton tiltHomeButton = new JoystickButton(operator, 2);
+    JoystickButton comboButton = new JoystickButton(operator, Constants.combo);
 
     fastButton.whenPressed(m_arcadeFastDrive);
     slowButton.whenPressed(m_arcadeSlowDrive);
-    //tiltForButton.whenPressed(new TiltForCommand(m_tiltSubsystem));
-    //tiltHomeButton.whenPressed(new TiltHomeCommand(m_tiltSubsystem));
-    /*if(operator.getRawAxis(5)!=0){
-      new TiltManual(m_tiltSubsystem, operator);
-    }*/
+    tiltForButton.whileHeld(new TiltForCommand(m_tiltSubsystem, operator));
+    tiltHomeButton.whileHeld(new TiltHomeCommand(m_tiltSubsystem, operator));
+    comboButton.whenPressed(betterComboCommand);
+    tiltHomeButton.whenInactive(new TiltManual(m_tiltSubsystem, operator));
+    tiltForButton.whenInactive(new TiltManual(m_tiltSubsystem, operator));
+    
+    //comboButton.whenInactive(new TiltManual(m_tiltSubsystem, operator));
+
+  
+    
     
     //intakeButton.whenPressed(m_spinIntake).whenReleased(m_defaultintake);
     //spinLeftButton.whenPressed(m_spinLeft).whenReleased(m_defaultintake);

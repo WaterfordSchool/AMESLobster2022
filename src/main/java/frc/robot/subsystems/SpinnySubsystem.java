@@ -15,6 +15,15 @@ public class SpinnySubsystem extends SubsystemBase{
       public SpinnySubsystem(XboxController operator) {
         spinLeft = new TalonFX(Constants.SPINNY1CANID);
         spinRight = new TalonFX(Constants.SPINNY2CANID);
+        spinLeft.config_kP(0, 0.15);
+        spinLeft.config_kF(0, 0);
+        spinLeft.config_kI(0, 0);
+        spinLeft.config_kD(0, 0);
+
+        spinRight.config_kP(0, 0.15);
+        spinRight.config_kF(0, 0);
+        spinRight.config_kI(0, 0);
+        spinRight.config_kD(0, 0);
       }
       
     @Override
@@ -44,8 +53,13 @@ public class SpinnySubsystem extends SubsystemBase{
     }
 
     public void intake(){
-        spinLeft.set(ControlMode.PercentOutput, -0.25);
-        spinRight.set(ControlMode.PercentOutput, 0.25);
+        spinLeft.set(ControlMode.Position, 200);
+        spinRight.set(ControlMode.Position, -200);
+    }
+
+    public void resetEncoders(){
+      spinLeft.setSelectedSensorPosition(0);
+      spinRight.setSelectedSensorPosition(0);
     }
     
     public void stopSpin(){

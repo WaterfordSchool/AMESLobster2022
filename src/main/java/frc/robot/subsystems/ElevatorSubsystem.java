@@ -39,11 +39,11 @@ public class ElevatorSubsystem extends SubsystemBase{
   }
 
   public void moveUp(){
-    carriage.set(ControlMode.Position, 1);
+    carriage.set(ControlMode.PercentOutput, -.5);
   }
 
   public void moveDown(){
-    carriage.set(ControlMode.Position, 2);
+    carriage.set(ControlMode.PercentOutput, .5);
   }
 
   public void moveDownSlightly(){
