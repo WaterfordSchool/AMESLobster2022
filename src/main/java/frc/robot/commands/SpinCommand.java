@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SpinnySubsystem;
-import frc.robot.subsystems.TiltSubsystem;
 
 public class SpinCommand extends CommandBase{
         
@@ -19,7 +18,7 @@ public class SpinCommand extends CommandBase{
           // Called when the command is initially scheduled.
           @Override
           public void initialize() {
-              
+
           }
         
           @Override
