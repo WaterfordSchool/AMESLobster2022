@@ -6,6 +6,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.AutoDriveForward;
 import frc.robot.commands.ElevatorManualCommand;
 import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.TiltForCommand;
@@ -52,6 +53,8 @@ public class RobotContainer {
   private final SequentialCommandGroup comboCommand = new SequentialCommandGroup(new TiltForCommand(m_tiltSubsystem, operator), new WaitCommand(1), new TiltHomeCommand(m_tiltSubsystem, operator), new WaitCommand(1), new TiltForCommand(m_tiltSubsystem, operator));
   private final ParallelCommandGroup betterComboCommand = new ParallelCommandGroup(new ElevatorUpCommand(m_elevatorSubsystem).withTimeout(1), comboCommand);
 
+  //auto
+  private final AutoDriveForward m_autoDriveForward = new AutoDriveForward(m_driveTrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
@@ -93,6 +96,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_autoDriveForward;
   }
 }
