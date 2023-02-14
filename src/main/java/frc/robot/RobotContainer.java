@@ -5,8 +5,10 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.AutoDriveForward;
+import frc.robot.commands.AutoDrive;
 import frc.robot.commands.ElevatorManualCommand;
 import frc.robot.commands.ElevatorUpCommand;
 import frc.robot.commands.TiltForCommand;
@@ -30,6 +32,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
 
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   XboxController driver = new XboxController(0);
   XboxController operator = new XboxController(1);
   // The robot's subsystems and commands are defined here...
@@ -52,14 +56,24 @@ public class RobotContainer {
 
   private final SequentialCommandGroup comboCommand = new SequentialCommandGroup(new TiltForCommand(m_tiltSubsystem, operator), new WaitCommand(1), new TiltHomeCommand(m_tiltSubsystem, operator), new WaitCommand(1), new TiltForCommand(m_tiltSubsystem, operator));
   private final ParallelCommandGroup betterComboCommand = new ParallelCommandGroup(new ElevatorUpCommand(m_elevatorSubsystem).withTimeout(1), comboCommand);
-
+  
   //auto
-  private final AutoDriveForward m_autoDriveForward = new AutoDriveForward(m_driveTrain);
+  private final AutoDrive m_autoDriveForward1 = new AutoDrive(m_driveTrain, 2, .4, 0);
+  private final AutoDrive m_autoDriveForward2 = new AutoDrive(m_driveTrain, 2, 0, .5);
+  private final AutoDrive m_autoDriveForward3 = new AutoDrive(m_driveTrain, 2, .4, 0);
+  private final AutoDrive m_autoDriveForward4 = new AutoDrive(m_driveTrain, 2, -.7, 0);
+  //private final SequentialCommandGroup auto = new SequentialCommandGroup(m_autoDriveForward1, m_autoDriveForward2, m_autoDriveForward3, m_autoDriveForward4);
+
+  private final AutoDrive m_driveForward = new AutoDrive(m_driveTrain, 1, .5, 0);
+  private final AutoDrive m_spinALot = new AutoDrive(m_driveTrain, 1, 0, .5);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(m_arcadeDefault);
     m_tiltSubsystem.setDefaultCommand(m_tiltManualCommand);
     m_elevatorSubsystem.setDefaultCommand(m_elevatorManualCommand);
+    m_chooser.setDefaultOption("forward", m_driveForward);
+    m_chooser.addOption("spin", m_spinALot);
+    SmartDashboard.putData("autos", m_chooser);
     configureButtonBindings();
   }
 
@@ -96,6 +110,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoDriveForward;
+    return m_chooser.getSelected();
   }
 }
